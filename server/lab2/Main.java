@@ -1,10 +1,10 @@
-package lab1;
+package lab2;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.net.MalformedURLException;
-import lab1.MyServerImpl;
+import lab2.MyServerImpl;
 
 public class Main {
     public static void main(String[] args) throws Exception{

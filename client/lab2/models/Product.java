@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Product implements Serializable{
+public class Product implements Serializable {
     String productName;
     
     public Product(String productName) {
