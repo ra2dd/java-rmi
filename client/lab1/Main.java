@@ -6,9 +6,10 @@ import lab1.MyServerInt;
 public class Main {
     public static void main(String[] args) {
         String text = "Connection number:";
+        String host = "<enter-server-ip>";
 
         try {
-            MyServerInt remoteObject = (MyServerInt) Naming.lookup("//localhost/ABC");
+            MyServerInt remoteObject = (MyServerInt) Naming.lookup("//" + host + "/ABC");
             String result = remoteObject.getDescription(text);
             System.out.println("Odpowiedź z serwera: " + result);
 
