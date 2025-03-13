@@ -7,8 +7,8 @@ import lab2.MyServerInt;
 import lab2.models.Product;
 
 public class Main {
-    public static void main(String[] args) {
-        String host = "<enter-server-ip>";
+    public static void main(String[] args) throws Exception{
+        String host = getHost();
 
         try {
             MyServerInt remoteObject = (MyServerInt) Naming.lookup("//" + host + "/ABC");
@@ -18,5 +18,14 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getHost() throws Exception{
+        String hostEnvName = "RMI_SERVER_IP";
+        String host = System.getenv(hostEnvName);
+        if (host == null) {
+            throw new Exception("Ustaw zmienną środowiskową " + hostEnvName + ", aby uruchomić program.");
+        }
+        return host;
     }
 }
