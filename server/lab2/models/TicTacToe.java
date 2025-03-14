@@ -25,25 +25,7 @@ public class TicTacToe {
     }
 
 
-    public String playerTurn() {
-        int moves = 0;
-        for (String[] row: this.board) {
-            for (String col: row) {
-                if (col != this.X && col != this.O && col == this.EMPTY) {
-                    moves += 1;
-                }
-            }
-        }
-        
-        if (moves % 2 == 0) {
-            return this.X;
-        } else {
-            return this.O;
-        }
-    }
-
-
-    public HashSet<List<Integer>> avaliableActions() {
+    private HashSet<List<Integer>> avaliableActions() {
         HashSet<List<Integer>> actions = new HashSet<List<Integer>>();
         for (int row = 0; row < this.boardSize; row++) {
             for (int col = 0; col < this.boardSize; col++) {
@@ -57,6 +39,7 @@ public class TicTacToe {
         }
         return actions;
     }
+
 
     public void displayAvailableActions() {
         HashSet<List<Integer>> actions = this.avaliableActions();
@@ -111,6 +94,7 @@ public class TicTacToe {
         }
     }
 
+    
     public boolean makeMove(String player, List<Integer> move) {
         // Check if move is valid
         if (this.moveValid(player, move) == false) {
@@ -129,6 +113,7 @@ public class TicTacToe {
 
         return true;
     }
+
 
     public String checkWinner() {
         // Check cols
@@ -173,13 +158,14 @@ public class TicTacToe {
             return this.board[0][0];
         }
         if (this.board[2][0] == this.board[1][1] 
-                && this.board[2][0] == this.board[1][0] 
+                && this.board[2][0] == this.board[0][2] 
                 && this.board[2][0] != null) {
             return this.board[2][0];
         }
 
         return null;
     }
+
 
     public boolean checkNoActions() {
         if (this.avaliableActions().isEmpty()) {
