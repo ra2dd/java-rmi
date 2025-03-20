@@ -11,4 +11,7 @@ public interface Server extends Remote {
     String getBoard() throws RemoteException;
     String getMoves() throws RemoteException;
     String getTurn() throws RemoteException;
+    boolean personOJoined() throws RemoteException;
+    void makeMove(String move) throws RemoteException;
+    boolean checkEnd() throws RemoteException;
 }

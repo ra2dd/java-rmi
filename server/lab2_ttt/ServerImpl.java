@@ -2,6 +2,8 @@ package lab2_ttt;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Arrays;
+import java.util.List;
 
 import lab2_ttt.models.TicTacToe;
 import lab2_ttt.Server;
@@ -34,7 +36,6 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
             personO = client;
             String joinedMes = "Użytkownik z symbolem O dołączył.";
             System.out.println(joinedMes);
-            personX.receiveMessage(joinedMes);
             return O;
         } else {
             System.out.println("Trzeci użytkownik próbował dołączyć.");
@@ -55,5 +56,58 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     @Override
     public String getTurn() throws RemoteException {
         return this.ttt.turn;
+    }
+
+    @Override
+    public boolean personOJoined() throws RemoteException {
+        if (this.personO == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public void makeMove(String move) throws RemoteException {
+        List<Integer> moveParsed = Arrays.asList(
+            Integer.parseInt(String.valueOf(move.charAt(0))), 
+            Integer.parseInt(String.valueOf(move.charAt(1)))
+        );
+
+        if (this.ttt.makeMove(ttt.turn, moveParsed) == false) {
+            String mes = "You provided wrong move try again.";
+            if (this.ttt.turn.equals(X)) {
+                this.personX.receiveMessage(mes);
+            } else {
+                this.personO.receiveMessage(mes);
+            }
+        }
+    }
+
+    @Override
+    public boolean checkEnd() throws RemoteException {
+        if (ttt.checkWinner() == ttt.X) {
+            this.personX.receiveMessage(this.winMessage(this.X));
+            this.personO.receiveMessage(this.endMessage());
+            return true;
+        } else if (ttt.checkWinner() == ttt.O) {
+            this.personO.receiveMessage(this.winMessage(this.O));
+            this.personX.receiveMessage(this.endMessage());
+            return true;
+        } else if (ttt.checkNoActions()) {
+            this.personO.receiveMessage(this.endMessage());
+            this.personX.receiveMessage(this.endMessage());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private String winMessage(String person) {
+        return this.ttt.getBoard() + "\n" + person + " won!";
+    }
+
+    private String endMessage() {
+        return this.ttt.getBoard() + "\n" + " end!";
     }
 }
