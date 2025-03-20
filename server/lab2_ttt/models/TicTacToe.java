@@ -41,31 +41,39 @@ public class TicTacToe {
     }
 
 
-    public void displayAvailableActions() {
+    public String getAvailableActions() {
+        String ac = "";
         HashSet<List<Integer>> actions = this.avaliableActions();
         for (List<Integer> action: actions) {
             for (Integer place: action) {
-                System.out.print(place);
+                ac += place;
             }
-            System.out.print(" ");
+            ac += " ";
         }
-        System.out.println();
+        return ac + "\n";
+    }
+
+
+    public String getBoard() {
+        String bd = "";
+        for (int i = 0; i < this.board.length; i++) {
+            for (int j = 0; j < this.board[i].length; j++) {
+                bd += this.board[i][j] == this.EMPTY ? " " : this.board[i][j];
+                if (j < this.board[i].length - 1) {
+                    bd += " | ";
+                }
+            }
+            bd += "\n";
+            if (i < this.board.length - 1) {
+                bd += "---------\n";
+            }
+        }
+        return bd;
     }
 
 
     public void printBoard() {
-        for (int i = 0; i < this.board.length; i++) {
-            for (int j = 0; j < this.board[i].length; j++) {
-                System.out.print(this.board[i][j] == this.EMPTY ? " " : this.board[i][j]);
-                if (j < this.board[i].length - 1) {
-                    System.out.print(" | ");
-                }
-            }
-            System.out.println();
-            if (i < this.board.length - 1) {
-                System.out.println("---------");
-            }
-        }
+        System.out.println(this.getBoard());
     }
 
 

@@ -24,6 +24,10 @@ public class Main {
             System.out.println("Rozpoaczęto, jesteś osobą " + person + ".\n");
             
             while (true) {
+                System.out.println(remoteObject.getBoard());
+                System.out.println(remoteObject.getMoves());
+                System.out.println(remoteObject.getTurn());
+
                 String message = scanner.nextLine();
                 if (message == "exit" || message == "exit()") {
                     break;
